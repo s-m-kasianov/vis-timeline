@@ -28,3 +28,7 @@ jobs:
     - run: npm install rollup --global
     - run: npm ci
     - run: npm run build --if-present
+    
+    - uses: stefanzweifel/git-auto-commit-action@v4
+      with:
+        commit_message: Build last chages
