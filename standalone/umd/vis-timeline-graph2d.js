@@ -5,7 +5,7 @@
  * Create a fully customizable, interactive timeline with items and ranges.
  *
  * @version 0.0.0-no-version
- * @date    2022-06-12T15:47:25.895Z
+ * @date    2022-06-12T15:52:43.406Z
  *
  * @copyright (c) 2011-2017 Almende B.V, http://almende.com
  * @copyright (c) 2017-2019 visjs contributors, https://github.com/visjs
@@ -36116,13 +36116,13 @@
 	  var _super = _createSuper$7(BoxItem);
 
 	  /**
-	  * @param {Object} data             Object containing parameters start
-	  *                                  content, className.
-	  * @param {{toScreen: function, toTime: function}} conversion
-	  *                                  Conversion functions from time to screen and vice versa
-	  * @param {Object} [options]        Configuration options
-	  *                                  // TODO: describe available options
-	  */
+	   * @param {Object} data             Object containing parameters start
+	   *                                  content, className.
+	   * @param {{toScreen: function, toTime: function}} conversion
+	   *                                  Conversion functions from time to screen and vice versa
+	   * @param {Object} [options]        Configuration options
+	   *                                  // TODO: describe available options
+	   */
 	  function BoxItem(data, conversion, options) {
 	    var _this;
 
@@ -36167,9 +36167,9 @@
 	      var align = this.data.align || this.options.align;
 	      var widthInMs = this.width * range.getMillisecondsPerPixel();
 
-	      if (align == 'right') {
+	      if (align == "right") {
 	        isVisible = this.data.start.getTime() > range.start && this.data.start.getTime() - widthInMs < range.end;
-	      } else if (align == 'left') {
+	      } else if (align == "left") {
 	        isVisible = this.data.start.getTime() + widthInMs > range.start && this.data.start.getTime() < range.end;
 	      } else {
 	        // default or 'center'
@@ -36179,9 +36179,9 @@
 	      return isVisible;
 	    }
 	    /**
-	    * create DOM element
-	    * @private
-	    */
+	     * create DOM element
+	     * @private
+	     */
 
 	  }, {
 	    key: "_createDomElement",
@@ -36190,19 +36190,19 @@
 	        // create DOM
 	        this.dom = {}; // create main box
 
-	        this.dom.box = document.createElement('DIV'); // contents box (inside the background box). used for making margins
+	        this.dom.box = document.createElement("DIV"); // contents box (inside the background box). used for making margins
 
-	        this.dom.content = document.createElement('DIV');
-	        this.dom.content.className = 'vis-item-content';
+	        this.dom.content = document.createElement("DIV");
+	        this.dom.content.className = "vis-item-content";
 	        this.dom.box.appendChild(this.dom.content); // line to axis
 
-	        this.dom.line = document.createElement('DIV');
-	        this.dom.line.className = 'vis-line'; // dot on axis
+	        this.dom.line = document.createElement("DIV");
+	        this.dom.line.className = "vis-line"; // dot on axis
 
-	        this.dom.dot = document.createElement('DIV');
-	        this.dom.dot.className = 'vis-dot'; // attach this item as attribute
+	        this.dom.dot = document.createElement("DIV");
+	        this.dom.dot.className = "vis-dot"; // attach this item as attribute
 
-	        this.dom.box['vis-item'] = this;
+	        this.dom.box["vis-item"] = this;
 	        this.dirty = true;
 	      }
 	    }
@@ -36215,24 +36215,24 @@
 	    key: "_appendDomElement",
 	    value: function _appendDomElement() {
 	      if (!this.parent) {
-	        throw new Error('Cannot redraw item: no parent attached');
+	        throw new Error("Cannot redraw item: no parent attached");
 	      }
 
 	      if (!this.dom.box.parentNode) {
 	        var foreground = this.parent.dom.foreground;
-	        if (!foreground) throw new Error('Cannot redraw item: parent has no foreground container element');
+	        if (!foreground) throw new Error("Cannot redraw item: parent has no foreground container element");
 	        foreground.appendChild(this.dom.box);
 	      }
 
 	      if (!this.dom.line.parentNode) {
 	        var background = this.parent.dom.background;
-	        if (!background) throw new Error('Cannot redraw item: parent has no background container element');
+	        if (!background) throw new Error("Cannot redraw item: parent has no background container element");
 	        background.appendChild(this.dom.line);
 	      }
 
 	      if (!this.dom.dot.parentNode) {
 	        var axis = this.parent.dom.axis;
-	        if (!background) throw new Error('Cannot redraw item: parent has no axis container element');
+	        if (!background) throw new Error("Cannot redraw item: parent has no axis container element");
 	        axis.appendChild(this.dom.dot);
 	      }
 
@@ -36259,7 +36259,7 @@
 
 	        var editable = this.editable.updateTime || this.editable.updateGroup; // update class
 
-	        var className = (this.data.className ? ' ' + this.data.className : '') + (this.selected ? ' vis-selected' : '') + (editable ? ' vis-editable' : ' vis-readonly');
+	        var className = (this.data.className ? " " + this.data.className : "") + (this.selected ? " vis-selected" : "") + (editable ? " vis-editable" : " vis-readonly");
 	        this.dom.box.className = "vis-item vis-box".concat(className);
 	        this.dom.line.className = "vis-item vis-line".concat(className);
 	        this.dom.dot.className = "vis-item vis-dot".concat(className);
@@ -36427,7 +36427,8 @@
 	        var rtl = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : false;
 	        if (x === undefined && y === undefined) return; // If rtl invert the number.
 
-	        var directionX = rtl ? x * -1 : x; //no y. translate x
+	        var directionX = rtl ? x * -1 : x;
+	        var idx = 0; //no y. translate x
 
 	        if (y === undefined) {
 	          element.style.transform = "translateX(".concat(directionX, "px)");
@@ -36438,9 +36439,17 @@
 	        if (x === undefined) {
 	          element.style.transform = "translateY(".concat(y, "px)");
 	          return;
+	        } // todo: 1
+
+
+	        if (y > 5) {
+	          idx = Math.floor(y / 40);
+	          directionX += idx * 7;
+	          y = 5 + idx * 7;
 	        }
 
 	        element.style.transform = _concatInstanceProperty(_context6 = "translate(".concat(directionX, "px, ")).call(_context6, y, "px)");
+	        element.style.zIndex = 100 - idx;
 	      };
 
 	      repositionXY(this.dom.box, this.boxX, this.boxY, rtl);
@@ -36460,12 +36469,12 @@
 	      var lineWidth = this.props.line.width;
 	      var dotWidth = this.props.dot.width;
 
-	      if (align == 'right') {
+	      if (align == "right") {
 	        // calculate right position of the box
 	        this.boxX = start - this.width;
 	        this.lineX = start - lineWidth;
 	        this.dotX = start - lineWidth / 2 - dotWidth / 2;
-	      } else if (align == 'left') {
+	      } else if (align == "left") {
 	        // calculate left position of the box
 	        this.boxX = start;
 	        this.lineX = start;
@@ -36491,12 +36500,12 @@
 	      var orientation = this.options.orientation.item;
 	      var lineStyle = this.dom.line.style;
 
-	      if (orientation == 'top') {
+	      if (orientation == "top") {
 	        var lineHeight = this.parent.top + this.top + 1;
 	        this.boxY = this.top || 0;
 	        lineStyle.height = "".concat(lineHeight, "px");
-	        lineStyle.bottom = '';
-	        lineStyle.top = '0';
+	        lineStyle.bottom = "";
+	        lineStyle.top = "0";
 	      } else {
 	        // orientation 'bottom'
 	        var itemSetHeight = this.parent.itemSet.props.height; // TODO: this is nasty
@@ -36505,8 +36514,8 @@
 
 	        this.boxY = this.parent.height - this.top - (this.height || 0);
 	        lineStyle.height = "".concat(_lineHeight, "px");
-	        lineStyle.top = '';
-	        lineStyle.bottom = '0';
+	        lineStyle.top = "";
+	        lineStyle.bottom = "0";
 	      }
 
 	      this.dotY = -this.props.dot.height / 2;
