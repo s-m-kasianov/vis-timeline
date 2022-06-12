@@ -1,1 +1,6 @@
-//**
+/declarations/**
+/dist/**
+/esnext/**
+/peer/**
+/standalone/**
+/styles/**
