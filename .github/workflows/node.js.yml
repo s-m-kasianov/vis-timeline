@@ -25,17 +25,12 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        
-    - name: Hide .gitignore
-      run: mv .gitignore not.gitignore
-        
+                
     - run: npm install rollup --global
     - run: npm ci
     - run: npm run build --if-present
     
-    - uses: stefanzweifel/git-auto-commit-action@v4
+    - name: Commit changes
+      uses: EndBug/add-and-commit@v8
       with:
-        commit_message: Build last chages
-        
-    - name: Unhide .gitignore
-      run: mv not.gitignore .gitignore        
+        message: 'Build last chages'
