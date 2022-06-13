@@ -30,10 +30,11 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     
-    - name: Commit changes
-      uses: EndBug/add-and-commit@v8
-      with:
-        author_name: Serhii Kasianov
-        author_email: matvik.net@gmail.com
-        message: "Build and commit last changes"
-        pathspec_error_handling: ignore
+    - name: push changes to remote
+      run: |
+        git config --global user.name "foo bar"
+        git config --global user.email "foo@bar.baz"
+
+        git add . 
+        git commit -m "commit message"
+        git push
