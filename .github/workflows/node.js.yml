@@ -33,4 +33,7 @@ jobs:
     - name: Commit changes
       uses: EndBug/add-and-commit@v8
       with:
-        message: 'Build last chages'
+        author_name: Serhii Kasianov
+        author_email: matvik.net@gmail.com
+        message: "Build and commit last changes"
+        pathspec_error_handling: ignore
